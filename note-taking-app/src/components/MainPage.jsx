@@ -1,4 +1,5 @@
 import {React, useState} from 'react'
+import FeatureCard from './FeatureCard';
 const MainPage = () => {
   const [label, setLabel] = useState('');
   const [description, setDescription] = useState('');
@@ -17,9 +18,19 @@ const MainPage = () => {
   return (
       <div className="container mt-5">
           <div className="row justify-content-center">
+                {/* //Task cards */}
+                
+                <div className="row mt-2 mx-auto justify-content-center">
+                    <FeatureCard title="Task1" description="Description" />
+                    <FeatureCard title="Task 2" description="Description" />
+                    <FeatureCard title="Task 3" description="Description" />
+                </div>
+            
+
+
               <div className="col-md-6">
                   <h2 className="text-center mb-4">Add Note</h2>
-                  <form onSubmit={handleSubmit}>
+                  
                       <div className="mb-3">
                           <label htmlFor="noteLabel" className="form-label">Label</label>
                           <input
@@ -36,24 +47,14 @@ const MainPage = () => {
                           <textarea
                               className="form-control"
                               id="noteDescription"
-                              rows="3"
+                              rows="1"
                               value={description}
                               onChange={(e) => setDescription(e.target.value)}
                               required
                           ></textarea>
                       </div>
-                      <div className="mb-3">
-                          <label htmlFor="timeToComplete" className="form-label">Time to Complete</label>
-                          <input
-                              type="text"
-                              className="form-control"
-                              id="timeToComplete"
-                              value={timeToComplete}
-                              onChange={(e) => setTimeToComplete(e.target.value)}
-                          />
-                      </div>
-                      <button type="submit" className="btn btn-primary w-100">Add Note</button>
-                  </form>
+                      <button type="submit" onClick={handleSubmit} className="btn btn-primary w-100">Add Note</button>
+                  
               </div>
           </div>
       </div>

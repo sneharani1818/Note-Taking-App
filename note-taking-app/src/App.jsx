@@ -1,25 +1,51 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Navbar from './components/Navbar'
-import CreateAccount from './components/CreateAccount'
 import Intro from './components/Intro'
-import Login from './components/Login'
-import MainPage from './components/MainPage'
-// import SideNavbar from './components/SideNavbar'
+import Login from './components/Login';
+import CreateAccount from './components/CreateAccount';
+import SideNavbar from './components/SideNavbar'
+import Dashboard from './components/Dashboard';
 
-// import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <><Navbar/><SideNavbar/><Intro/></>,
+    },
+    {
+        path: "/login",
+        element:<><Navbar/><Login/></>,
+    },
+    {
+        path: "/createaccount",
+        element:<><Navbar/><CreateAccount/></>,
+    },
+    {
+        path:"/dashboard",
+        element:<><Dashboard /></>
+    }
+]);
 
-  return (
-    <>
-      <Navbar />
-      <Intro />
-      <Login />
-      <MainPage />
-      {/* <SideNavbar /> */}
-      <CreateAccount />
-    </>
+
+const App = () => {
+  const [login, setLogin] = useState(false)
+
+
+  var token;
+    useEffect(()=>{
+        token = localStorage.getItem("authtoken")
+        if(token){
+            setLogin(true)
+            
+        }
+        else{
+            setLogin(false)
+        }
+        console.log(login)
+    },[token, login])
+  return (    
+    <RouterProvider token={token} login={login} router={router} />
   )
 }
 
